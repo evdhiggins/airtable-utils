@@ -1,144 +1,54 @@
 import validateApiKey from '../../src/validateApiKey'
 
-const requestSuccess = {
-    statusCode: 404,
-    body: {
-        error: {
-            type: 'MODEL_ID_NOT_FOUND',
-        },
-    },
-}
-
-const requestFailure = {
-    statusCode: 401,
-    body: {
-        error: {
-            type: 'UNAUTHORIZED',
-        },
-    },
-}
-
 // valid in format, not actuality
-const validApiKey = 'keyabcdefghijklmn'
+const validApiKey = 'key00000000000000'
 
-let phinReturnValue: any
-const phinMock = jest.fn(async (...args: any[]) => phinReturnValue)
-
-jest.mock('phin', () => async (...args: any[]) => phinMock(...args))
-
-beforeEach(() => {
-    phinMock.mockClear()
-    phinReturnValue = requestSuccess
+test('Return a boolean', () => {
+    expect(typeof validateApiKey('')).toBe('boolean')
 })
 
-describe('basics', () => {
-    test('Return a boolean', async done => {
-        const result = await validateApiKey(validApiKey)
-        expect(typeof result).toBe('boolean')
-        done()
+describe('Always return `false` on non-string input', () => {
+    const validate = (arg: any) => validateApiKey((arg as unknown) as any)
+
+    test('boolean', () => {
+        expect(validate(true)).toBe(false)
     })
-
-    test('Return `true` when the api key is the proper format and the request response indicates a success', async done => {
-        phinReturnValue = requestSuccess
-        const result = await validateApiKey(validApiKey)
-        expect(result).toBe(true)
-        done()
+    test('number', () => {
+        expect(validate(234)).toBe(false)
     })
-
-    test('Return `false` when the request response indicates a failure', async done => {
-        phinReturnValue = requestFailure
-        const result = await validateApiKey(validApiKey)
-        expect(result).toBe(false)
-        done()
+    test('undefined', () => {
+        expect(validate(undefined)).toBe(false)
     })
-
-    test('Always return `false` on invalid input', async done => {
-        const fn = (arg: any) => validateApiKey((arg as unknown) as string)
-        await expect(fn(123)).resolves.toBe(false)
-        await expect(fn(null)).resolves.toBe(false)
-        await expect(fn(undefined)).resolves.toBe(false)
-        await expect(fn({ key: 'value' })).resolves.toBe(false)
-        await expect(
-            fn(() => {
-                throw new Error('')
-            }),
-        ).resolves.toBe(false)
-        done()
+    test('null', () => {
+        expect(validate(null)).toBe(false)
     })
-
-    test('Never perform an API call when input is invalid', async done => {
-        const fn = (arg: any) => validateApiKey((arg as unknown) as string)
-
-        await fn(123)
-        await fn(null)
-        await fn(undefined)
-        await fn({ key: 'value' })
-        await fn(() => {
-            throw new Error('')
-        })
-
-        expect(phinMock.mock.calls.length).toBe(0)
-
-        done()
+    test('object', () => {
+        expect(validate({ key: 'value' })).toBe(false)
     })
+    test('function', () => {
+        expect(validate(() => validApiKey)).toBe(false)
+    })
+})
 
-    describe('When called with a string input that is less than 17 characters in length', () => {
+describe('Return false when the argument is a string that...', () => {
+    test('Is less than 17 characters in length', () => {
         const shortApiKey = validApiKey.substring(0, 15)
-        it("Doesn't perform an API call", async done => {
-            await validateApiKey(shortApiKey)
-            expect(phinMock.mock.calls.length).toBe(0)
-            done()
-        })
-
-        it('Returns false', async done => {
-            const result = await validateApiKey(shortApiKey)
-            expect(result).toBe(false)
-            done()
-        })
+        expect(validateApiKey(shortApiKey)).toBe(false)
     })
-
-    describe('When called with a string input that is greater than 17 characters in length', () => {
-        const longApiKey = validApiKey + 'a'
-        it("Doesn't perform an API call", async done => {
-            await validateApiKey(longApiKey)
-            expect(phinMock.mock.calls.length).toBe(0)
-            done()
-        })
-
-        it('Returns false', async done => {
-            const result = await validateApiKey(longApiKey)
-            expect(result).toBe(false)
-            done()
-        })
+    test('Is greater than 17 characters in length', () => {
+        const longApiKey = `${validApiKey}0`
+        expect(validateApiKey(longApiKey)).toBe(false)
     })
-
-    describe('When called with a string input that is 17 characters long but doesn\'t start with "key"', () => {
-        const invalidApiKey = 'kei' + validApiKey.substring(3)
-        it("Doesn't perform an API call", async done => {
-            await validateApiKey(invalidApiKey)
-            expect(phinMock.mock.calls.length).toBe(0)
-            done()
-        })
-
-        it('Returns false', async done => {
-            const result = await validateApiKey(invalidApiKey)
-            expect(result).toBe(false)
-            done()
-        })
+    test('Does not begin with "key" ', () => {
+        const invalidApiKey = `kei${validApiKey}`.substring(0, 17)
+        expect(validateApiKey(invalidApiKey)).toBe(false)
     })
-
-    describe('When called with a string input that is 17 characters long and starts with "key" but contains non alphanumeric characters', () => {
-        const invalidApiKey = 'keyabdefghijklm$'
-        it("Doesn't perform an API call", async done => {
-            await validateApiKey(invalidApiKey)
-            expect(phinMock.mock.calls.length).toBe(0)
-            done()
-        })
-
-        it('Returns false', async done => {
-            const result = await validateApiKey(invalidApiKey)
-            expect(result).toBe(false)
-            done()
-        })
+    test('Contains non-alphanumeric characters', () => {
+        const invalidApiKey = `key`.padEnd(17, '$')
+        expect(validateApiKey(invalidApiKey)).toBe(false)
     })
+})
+
+test('Return `true` when the argument is a valid string', () => {
+    expect(validateApiKey(validApiKey)).toBe(true)
 })
