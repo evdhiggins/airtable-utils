@@ -1,2 +1,2 @@
-export { default as validateApiKey } from './validateApiKey'
+export { validateApiKey, validateBaseId, validateTableId, validateViewId } from './validators'
 export { default as verifyApiKey } from './verifyApiKey'

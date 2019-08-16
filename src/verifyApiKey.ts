@@ -1,5 +1,5 @@
 import * as phin from 'phin'
-import validateApiKey from './validateApiKey'
+import { validateApiKey } from './validators'
 
 /**
  * Check to see if an Airtable API key is valid
