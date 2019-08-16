@@ -1,51 +1,53 @@
 {
-  "name": "airtable-utils",
-  "version": "0.0.1",
-  "description": "A collection of utilities for the Airtable API",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest",
-    "test:integration": "jest test/integration/*",
-    "test:unit": "jest test/unit/*"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/evdhiggins/airtable-utils.git"
-  },
-  "keywords": [
-    "airtable",
-    "api",
-    "utilities"
-  ],
-  "author": "Evan Higgins <evdhiggins@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/evdhiggins/airtable-utils/issues"
-  },
-  "homepage": "https://github.com/evdhiggins/airtable-utils#readme",
-  "dependencies": {
-    "phin": "^3.4.0"
-  },
-  "devDependencies": {
-    "@types/dotenv": "^6.1.1",
-    "@types/jest": "^24.0.17",
-    "@types/node": "^12.7.2",
-    "@types/phin": "^3.3.0",
-    "dotenv": "^8.0.0",
-    "jest": "^24.9.0",
-    "prettier": "^1.18.2",
-    "prettier-tslint": "^0.4.2",
-    "ts-jest": "^24.0.2",
-    "tslint": "^5.18.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-config-standard": "^8.0.1",
-    "typescript": "^3.5.3"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest"
+    "name": "airtable-utils",
+    "version": "0.0.1",
+    "description": "A collection of utilities for the Airtable API",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc -p .",
+        "test": "jest",
+        "tests": "jest",
+        "test:integration": "jest test/integration/*",
+        "test:unit": "jest test/unit/*"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evdhiggins/airtable-utils.git"
+    },
+    "keywords": [
+        "airtable",
+        "api",
+        "utilities"
+    ],
+    "author": "Evan Higgins <evdhiggins@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/evdhiggins/airtable-utils/issues"
+    },
+    "homepage": "https://github.com/evdhiggins/airtable-utils#readme",
+    "dependencies": {
+        "phin": "^3.4.0"
+    },
+    "devDependencies": {
+        "@types/dotenv": "^6.1.1",
+        "@types/jest": "^24.0.17",
+        "@types/node": "^12.7.2",
+        "@types/phin": "^3.3.0",
+        "dotenv": "^8.0.0",
+        "jest": "^24.9.0",
+        "prettier": "^1.18.2",
+        "prettier-tslint": "^0.4.2",
+        "ts-jest": "^24.0.2",
+        "tslint": "^5.18.0",
+        "tslint-config-prettier": "^1.18.0",
+        "tslint-config-standard": "^8.0.1",
+        "typescript": "^3.5.3"
+    },
+    "jest": {
+        "preset": "ts-jest",
+        "testEnvironment": "node",
+        "transform": {
+            "^.+\\.jsx?$": "babel-jest"
+        }
     }
-  }
 }
