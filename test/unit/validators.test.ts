@@ -1,10 +1,11 @@
-import { validate, validateApiKey, validateBaseId, validateTableId, validateViewId } from '../../src/validators'
+import { validate, validateApiKey, validateBaseId, validateTableId, validateViewId, validateTableName } from '../../src/validators'
 
 // valid in format, not actuality
 const validApiKey = 'key'.padEnd(17, '0')
 const validBaseId = 'app'.padEnd(17, '0')
 const validTableId = 'tbl'.padEnd(17, '0')
 const validViewId = 'viw'.padEnd(17, '0')
+const validTableName = 'Table Name'
 
 describe('validate', () => {
     test('Return a boolean', () => {
@@ -97,5 +98,40 @@ describe('When the credentials are the proper length and only contain alpha-nume
             const invalidViewId = 'vew'.padEnd(17, '0')
             expect(validateViewId(invalidViewId)).toBe(false)
         })
+    })
+})
+
+describe('validateTableName', () => {
+    describe('Return `false` when "tableName"', () => {
+        describe('Is not a string', () => {
+            const fn = (arg: any) => validateTableName((arg as unknown) as any)
+
+            test('boolean', () => {
+                expect(fn(true)).toBe(false)
+            })
+            test('number', () => {
+                expect(fn(234)).toBe(false)
+            })
+            test('undefined', () => {
+                expect(fn(undefined)).toBe(false)
+            })
+            test('null', () => {
+                expect(fn(null)).toBe(false)
+            })
+            test('object', () => {
+                expect(fn({ key: 'value' })).toBe(false)
+            })
+            test('function', () => {
+                expect(fn(() => validApiKey)).toBe(false)
+            })
+        })
+
+        test('Is an empty string', () => {
+            expect(validateTableName('')).toBe(false)
+        })
+    })
+
+    test('Return `true` when table name is valid', () => {
+        expect(validateTableName(validTableName)).toBe(true)
     })
 })

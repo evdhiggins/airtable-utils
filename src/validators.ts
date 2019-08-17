@@ -23,3 +23,11 @@ export const validateTableId = (tableId: string) => validate('tbl', tableId)
  * Validate an Airtable view ID
  */
 export const validateViewId = (viewId: string) => validate('viw', viewId)
+
+/**
+ * Validate an Airtable table name
+ */
+export const validateTableName = (tableName: string) => {
+    // tslint:disable-next-line:strict-type-predicates
+    return typeof tableName === 'string' && !!tableName
+}
