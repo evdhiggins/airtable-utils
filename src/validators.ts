@@ -5,21 +5,21 @@ export const validate = (prefix: string, credential: string) => {
 }
 
 /**
- * Check to see if an Airtable API key is a string with valid structure
+ * Validate an Airtable API key
  */
 export const validateApiKey = (apiKey: string) => validate('key', apiKey)
 
 /**
- * Validate an Airtable base id structure
+ * Validate an Airtable base ID
  */
 export const validateBaseId = (baseId: string) => validate('app', baseId)
 
 /**
- * Validate an Airtable table id structure
+ * Validate an Airtable table ID
  */
 export const validateTableId = (tableId: string) => validate('tbl', tableId)
 
 /**
- * Validate an Airtable table id structure
+ * Validate an Airtable view ID
  */
 export const validateViewId = (viewId: string) => validate('viw', viewId)
