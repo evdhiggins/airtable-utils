@@ -3,22 +3,22 @@ dotenv.config({ path: '.test.env' })
 import verify from '../../src/verifyBaseAndTableId'
 
 // tslint:disable:no-unnecessary-type-assertion
-const validApiKey = process.env.API_KEY as string
-const validBaseId = process.env.BASE_ID as string
-const validTableId = process.env.TABLE_ID as string
+const existentApiKey = process.env.API_KEY as string
+const existentBaseId = process.env.BASE_ID as string
+const existentTableId = process.env.TABLE_ID as string
 // tslint:enable:no-unnecessary-type-assertion
-const invalidApiKey = 'key'.padEnd(17, '0')
-const invalidBaseId = 'app'.padEnd(17, '0')
-const invalidTableId = 'tbl'.padEnd(17, '0')
+const nonexistentApiKey = 'key'.padEnd(17, '0')
+const nonexistentBaseId = 'app'.padEnd(17, '0')
+const nonexistentTableId = 'tbl'.padEnd(17, '0')
 
-test('Return `true` when all credentials are valid', async done => {
-    const result = await verify(validApiKey, validBaseId, validTableId)
+test("Return `true` when all credentials exist in Airtable's systems", async done => {
+    const result = await verify(existentApiKey, existentBaseId, existentTableId)
     expect(result).toBe(true)
     done()
 })
 
-test('Return `false` when all credentials are not valid', async done => {
-    const result = await verify(invalidApiKey, invalidBaseId, invalidTableId)
+test("Return `false` when not all credentials exist in Artable's systems", async done => {
+    const result = await verify(nonexistentApiKey, nonexistentBaseId, nonexistentTableId)
     expect(result).toBe(false)
     done()
 })

@@ -2,7 +2,7 @@ import * as phin from 'phin'
 import { validateApiKey } from './validators'
 
 /**
- * Check to see if an Airtable API key is valid
+ * Check to see if an Airtable API key exists in Airtable's systems
  */
 export default async (apiKey: string): Promise<boolean> => {
     if (!validateApiKey(apiKey)) {
