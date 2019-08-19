@@ -1,4 +1,4 @@
-import * as phin from 'phin'
+import makeApiRequest from './util/makeApiRequest'
 import { validateApiKey, validateBaseId, validateTableId } from './validators'
 
 /**
@@ -9,13 +9,7 @@ export default async (apiKey: string, baseId: string, tableId: string): Promise<
         return false
     }
     try {
-        const response = await phin({
-            url: `https://api.airtable.com/v0/${baseId}/${tableId}?maxRecords=1`,
-            headers: {
-                Authorization: `Bearer ${apiKey}`,
-            },
-            parse: 'json',
-        })
+        const response = await makeApiRequest(apiKey, baseId, tableId)
         if (response.statusCode === 200) {
             return true
         }

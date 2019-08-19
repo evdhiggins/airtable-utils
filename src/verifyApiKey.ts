@@ -1,4 +1,4 @@
-import * as phin from 'phin'
+import makeApiRequest from './util/makeApiRequest'
 import { validateApiKey } from './validators'
 
 /**
@@ -9,13 +9,7 @@ export default async (apiKey: string): Promise<boolean> => {
         return false
     }
     try {
-        const response = await phin({
-            url: 'https://api.airtable.com/v0/app00000000000000/tbl00000000000000',
-            headers: {
-                Authorization: `Bearer ${apiKey}`,
-            },
-            parse: 'json',
-        })
+        const response = await makeApiRequest(apiKey, 'app00000000000000', 'tbl00000000000000')
         if (response.statusCode === 404) {
             return true
         }
