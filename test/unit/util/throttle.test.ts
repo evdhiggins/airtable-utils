@@ -75,7 +75,15 @@ describe('throttleFactory', () => {
 })
 
 describe('throttle', () => {
-    const throttledFn = jest.fn()
+    const callOrder = { order: 0 }
+    const throttledFn = jest.fn((...args: any) => {
+        callOrder.order++
+        return callOrder.order
+    })
+
+    beforeEach(() => {
+        callOrder.order = 0
+    })
 
     test('Call the passed throttled function', async done => {
         const throttle = throttleFactory()
@@ -90,6 +98,29 @@ describe('throttle', () => {
         const arg2 = 2
         await throttle(throttledFn, arg1, arg2)
         expect(throttledFn).toHaveBeenCalledWith(arg1, arg2)
+        done()
+    })
+
+    test('Call the throttled functions in the correct order', async done => {
+        const throttle = throttleFactory(4, 1000)
+        const proms = [
+            throttle(throttledFn),
+            throttle(throttledFn),
+            throttle(throttledFn),
+            throttle(throttledFn),
+            throttle(throttledFn),
+            throttle(throttledFn),
+            throttle(throttledFn),
+        ]
+        jest.advanceTimersByTime(1000)
+        NOW += 1000
+
+        const results = await Promise.all(proms)
+
+        results.forEach((result, i) => {
+            expect(result).toBe(i + 1)
+        })
+
         done()
     })
 
@@ -118,7 +149,12 @@ describe('throttle', () => {
         })
         describe('When called 4 times at the same time', () => {
             test('Only call the throttled fn the fourth time after 5 seconds have passed', async done => {
-                const proms = [throttle(throttledFn), throttle(throttledFn), throttle(throttledFn), throttle(throttledFn)]
+                const proms = [
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                ]
                 expect(throttledFn).toHaveBeenCalledTimes(3)
                 jest.advanceTimersByTime(5000)
                 NOW += 5000
@@ -127,7 +163,12 @@ describe('throttle', () => {
                 done()
             })
             test('call setTimeout once', async done => {
-                const proms = [throttle(throttledFn), throttle(throttledFn), throttle(throttledFn), throttle(throttledFn)]
+                const proms = [
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                ]
                 jest.advanceTimersByTime(5000)
                 NOW += 5000
                 await Promise.all(proms)
@@ -137,26 +178,50 @@ describe('throttle', () => {
         })
         describe('When called 9 times without ever exceeding the rate limit', () => {
             test('Call throttled function 9 times', async done => {
-                await Promise.all([throttle(throttledFn), throttle(throttledFn), throttle(throttledFn)])
+                await Promise.all([
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                ])
                 jest.advanceTimersByTime(5000)
                 NOW += 5000
-                await Promise.all([throttle(throttledFn), throttle(throttledFn), throttle(throttledFn)])
+                await Promise.all([
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                ])
                 jest.advanceTimersByTime(5000)
                 NOW += 5000
-                await Promise.all([throttle(throttledFn), throttle(throttledFn), throttle(throttledFn)])
+                await Promise.all([
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                ])
                 jest.advanceTimersByTime(5000)
                 NOW += 5000
                 expect(throttledFn).toHaveBeenCalledTimes(9)
                 done()
             })
             test('Never call setTimout', async done => {
-                await Promise.all([throttle(throttledFn), throttle(throttledFn), throttle(throttledFn)])
+                await Promise.all([
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                ])
                 jest.advanceTimersByTime(5000)
                 NOW += 5000
-                await Promise.all([throttle(throttledFn), throttle(throttledFn), throttle(throttledFn)])
+                await Promise.all([
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                ])
                 jest.advanceTimersByTime(5000)
                 NOW += 5000
-                await Promise.all([throttle(throttledFn), throttle(throttledFn), throttle(throttledFn)])
+                await Promise.all([
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                    throttle(throttledFn),
+                ])
                 jest.advanceTimersByTime(5000)
                 NOW += 5000
                 expect(setTimeout).not.toHaveBeenCalled()

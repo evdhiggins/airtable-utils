@@ -11,7 +11,7 @@ export default (requestsPerDuration: number = 3, duration: number = 1000) => {
     let throttleExpiration = now() + duration
     let requestsPerformed = 0
 
-    const throttle = async <T extends (...args: any[]) => any, A extends Parameters<T>, R extends ReturnType<T>>(
+    const throttle = async <T extends (...args: any[]) => any, A extends Parameters<T>, R = ReturnType<T>>(
         fn: T,
         ...args: A
     ): Promise<R> => {
