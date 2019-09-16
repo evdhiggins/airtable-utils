@@ -1,11 +1,11 @@
 import makeApiRequest from './util/makeApiRequest'
-import { validateApiKey } from './validators'
+import { apiKeyIsValid } from './validators'
 
 /**
  * Check to see if an Airtable API key exists in Airtable's systems
  */
 export default async (apiKey: string): Promise<boolean> => {
-    if (!validateApiKey(apiKey)) {
+    if (!apiKeyIsValid(apiKey)) {
         return false
     }
     try {

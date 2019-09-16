@@ -7,27 +7,27 @@ export const validate = (prefix: string, credential: string) => {
 /**
  * Validate an Airtable API key
  */
-export const validateApiKey = (apiKey: string) => validate('key', apiKey)
+export const apiKeyIsValid = (apiKey: string) => validate('key', apiKey)
 
 /**
  * Validate an Airtable base ID
  */
-export const validateBaseId = (baseId: string) => validate('app', baseId)
+export const baseIdIsValid = (baseId: string) => validate('app', baseId)
 
 /**
  * Validate an Airtable table ID
  */
-export const validateTableId = (tableId: string) => validate('tbl', tableId)
+export const tableIdIsValid = (tableId: string) => validate('tbl', tableId)
 
 /**
  * Validate an Airtable view ID
  */
-export const validateViewId = (viewId: string) => validate('viw', viewId)
+export const viewIdIsValid = (viewId: string) => validate('viw', viewId)
 
 /**
  * Validate an Airtable table name
  */
-export const validateTableName = (tableName: string) => {
+export const tableNameIsValid = (tableName: string) => {
     // tslint:disable-next-line:strict-type-predicates
     return typeof tableName === 'string' && !!tableName
 }

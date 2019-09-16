@@ -1,4 +1,11 @@
-import { validate, validateApiKey, validateBaseId, validateTableId, validateViewId, validateTableName } from '../../src/validators'
+import {
+    validate,
+    apiKeyIsValid,
+    baseIdIsValid,
+    tableIdIsValid,
+    viewIdIsValid,
+    tableNameIsValid,
+} from '../../src/validators'
 
 // valid in format, not actuality
 const validApiKey = 'key'.padEnd(17, '0')
@@ -60,51 +67,51 @@ describe('validate', () => {
 })
 
 describe('When the credentials are the proper length and only contain alpha-numeric characters', () => {
-    describe('validateApiKey', () => {
+    describe('apiKeyIsValid', () => {
         test('Return `true` when api key starts with "key"', () => {
-            expect(validateApiKey(validApiKey)).toBe(true)
+            expect(apiKeyIsValid(validApiKey)).toBe(true)
         })
         test('Return `false` when api key does not start with "key"', () => {
             const invalidApiKey = 'kei'.padEnd(17, '0')
-            expect(validateApiKey(invalidApiKey)).toBe(false)
+            expect(apiKeyIsValid(invalidApiKey)).toBe(false)
         })
     })
 
-    describe('validateBaseId', () => {
+    describe('baseIdIsValid', () => {
         test('Return `true` when base id starts with "app"', () => {
-            expect(validateBaseId(validBaseId)).toBe(true)
+            expect(baseIdIsValid(validBaseId)).toBe(true)
         })
         test('Return `false` when base id does not start with "app"', () => {
             const invalidBaseId = 'apq'.padEnd(17, '0')
-            expect(validateBaseId(invalidBaseId)).toBe(false)
+            expect(baseIdIsValid(invalidBaseId)).toBe(false)
         })
     })
 
-    describe('validateTableId', () => {
+    describe('tableIdIsValid', () => {
         test('Return `true` when table id starts with "tbl"', () => {
-            expect(validateTableId(validTableId)).toBe(true)
+            expect(tableIdIsValid(validTableId)).toBe(true)
         })
         test('Return `false` when api key does not start with "tbl"', () => {
             const invalidTableId = 'tbb'.padEnd(17, '0')
-            expect(validateTableId(invalidTableId)).toBe(false)
+            expect(tableIdIsValid(invalidTableId)).toBe(false)
         })
     })
 
-    describe('validateViewId', () => {
+    describe('viewIdIsValid', () => {
         test('Return `true` when view id starts with "viw"', () => {
-            expect(validateViewId(validViewId)).toBe(true)
+            expect(viewIdIsValid(validViewId)).toBe(true)
         })
         test('Return `false` when view id does not start with "viw"', () => {
             const invalidViewId = 'vew'.padEnd(17, '0')
-            expect(validateViewId(invalidViewId)).toBe(false)
+            expect(viewIdIsValid(invalidViewId)).toBe(false)
         })
     })
 })
 
-describe('validateTableName', () => {
+describe('tableNameIsValid', () => {
     describe('Return `false` when "tableName"', () => {
         describe('Is not a string', () => {
-            const fn = (arg: any) => validateTableName((arg as unknown) as any)
+            const fn = (arg: any) => tableNameIsValid((arg as unknown) as any)
 
             test('boolean', () => {
                 expect(fn(true)).toBe(false)
@@ -127,11 +134,11 @@ describe('validateTableName', () => {
         })
 
         test('Is an empty string', () => {
-            expect(validateTableName('')).toBe(false)
+            expect(tableNameIsValid('')).toBe(false)
         })
     })
 
     test('Return `true` when table name is valid', () => {
-        expect(validateTableName(validTableName)).toBe(true)
+        expect(tableNameIsValid(validTableName)).toBe(true)
     })
 })
