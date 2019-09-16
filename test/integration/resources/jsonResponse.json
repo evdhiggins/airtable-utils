@@ -1,0 +1,143 @@
+{
+    "records": [
+        {
+            "id": "recHRZFTk2glDoStN",
+            "fields": {
+                "Long text": "Line one\n\nLine three\n\n\nLine six",
+                "Multiple select": ["Option4"],
+                "Single select": "Option2",
+                "Collaborator (Multiple)": [
+                    {
+                        "id": "usr00000000000000",
+                        "email": "user@email.com",
+                        "name": "Firstname Lastname"
+                    }
+                ],
+                "Datetime": "2019-08-13T01:53:00.000Z",
+                "Phone number": "(123) 456-7890",
+                "Email": "invalid",
+                "URL": "www.airtable.com",
+                "Decimal, no negative": 12312.4243,
+                "Decimal, negative": -2342.32,
+                "Integer, no negative": 4324,
+                "Integer, negative": -234,
+                "Currency": 11.2,
+                "Percent": 0.3,
+                "Duration": 5100,
+                "Rating": 5,
+                "Autonumber": 2,
+                "Barcode": {
+                    "text": "234234234"
+                },
+                "Formula": 10,
+                "Created time": "2019-08-20T01:39:27.000Z",
+                "Last modified time": "2019-09-16T01:45:24.000Z",
+                "Single line text": "This is also a single line of text",
+                "Linked record, multiple": ["recmbewxA3Y4LUEPs", "reccylLXIqnpPcTTy"],
+                "Linked record, single": ["recmbewxA3Y4LUEPs"]
+            },
+            "createdTime": "2019-08-20T01:39:27.000Z"
+        },
+        {
+            "id": "recarEb0px7uIaJcF",
+            "fields": {
+                "Single line text": "1235",
+                "Long text": "\n\n\n\n\n\n\n\n\n\n\n\n\n\nText.",
+                "Checkbox": true,
+                "Multiple select": ["Option5"],
+                "Single select": "Option1",
+                "Collaborator (Single)": {
+                    "id": "usr00000000000000",
+                    "email": "user@email.com",
+                    "name": "Firstname Lastname"
+                },
+                "Date": "2019-08-16",
+                "Datetime": "2019-08-31T01:53:00.000Z",
+                "Phone number": "(123) 456-7890",
+                "Email": "email@net.net",
+                "URL": "www.airform.app",
+                "Decimal, no negative": 3453.3453,
+                "Decimal, negative": -234,
+                "Integer, no negative": 34,
+                "Integer, negative": 234,
+                "Currency": 353.352,
+                "Percent": 0.22,
+                "Duration": 60,
+                "Rating": 1,
+                "Autonumber": 3,
+                "Barcode": {
+                    "text": "2342342"
+                },
+                "Formula": 2,
+                "Created time": "2019-08-20T01:39:27.000Z",
+                "Last modified time": "2019-09-16T01:46:49.000Z",
+                "Linked record, multiple": ["recmbewxA3Y4LUEPs", "reciaWC4JQk6zwjOt"],
+                "Linked record, single": ["reccylLXIqnpPcTTy"],
+                "Attachment": [
+                    {
+                        "id": "attNNv7jblFmyJHna",
+                        "url": "https://dl.airtable.com/.attachments/cba5612c172837baf938d9ce92a2b2fd/ecc7e4f7/tsconfig.json",
+                        "filename": "tsconfig.json",
+                        "size": 515,
+                        "type": "application/json"
+                    }
+                ]
+            },
+            "createdTime": "2019-08-20T01:39:27.000Z"
+        },
+        {
+            "id": "recwXGhgm25UsVjHV",
+            "fields": {
+                "Single line text": "This is a single line of text",
+                "Long text": "Line one\nLine two \nLine three",
+                "Checkbox": true,
+                "Multiple select": ["Option1", "Option3"],
+                "Single select": "Option1",
+                "Collaborator (Single)": {
+                    "id": "usr00000000000000",
+                    "email": "user@email.com",
+                    "name": "Firstname Lastname"
+                },
+                "Collaborator (Multiple)": [
+                    {
+                        "id": "usr00000000000000",
+                        "email": "user@email.com",
+                        "name": "Firstname Lastname"
+                    }
+                ],
+                "Date": "2019-08-13",
+                "Datetime": "2019-08-17T01:53:00.000Z",
+                "Phone number": "(123) 456-7890",
+                "Email": "email@net.co",
+                "URL": "www.google.com",
+                "Decimal, no negative": 12.3231,
+                "Decimal, negative": 342.2342,
+                "Integer, no negative": 234,
+                "Integer, negative": 234,
+                "Currency": 22.2345,
+                "Percent": 0.25,
+                "Duration": 127920,
+                "Rating": 4,
+                "Autonumber": 1,
+                "Barcode": {
+                    "text": "3423423"
+                },
+                "Formula": 8,
+                "Created time": "2019-08-20T01:39:27.000Z",
+                "Last modified time": "2019-09-16T01:46:39.000Z",
+                "Linked record, multiple": ["reccylLXIqnpPcTTy"],
+                "Linked record, single": ["reciaWC4JQk6zwjOt"],
+                "Attachment": [
+                    {
+                        "id": "attRo5GYxoXZ4NB9B",
+                        "url": "https://dl.airtable.com/.attachments/3c7a7b9a1929c6ce8cea617808dc57a4/2e9771da/tslint.json",
+                        "filename": "tslint.json",
+                        "size": 244,
+                        "type": "application/json"
+                    }
+                ]
+            },
+            "createdTime": "2019-08-20T01:39:27.000Z"
+        }
+    ]
+}
