@@ -44,10 +44,17 @@ test('Only create a single throttle if makeApiRequest is called multiple times w
     done()
 })
 
-test('Perform a phin http request to a url constructed from the baseId and tableId', async done => {
+test('Perform a phin http request to a url that contains the baseId', async done => {
     await makeApiRequest(apiKey, baseId, tableId)
     const requestArg = phinMock.mock.calls[0][0]
-    expect(requestArg.url).toBe(`https://api.airtable.com/v0/${baseId}/${tableId}`)
+    expect(requestArg.url).toMatch(baseId)
+    done()
+})
+
+test('Perform a phin http request to a url that contains the tableId', async done => {
+    await makeApiRequest(apiKey, baseId, tableId)
+    const requestArg = phinMock.mock.calls[0][0]
+    expect(requestArg.url).toMatch(tableId)
     done()
 })
 
@@ -57,5 +64,26 @@ test('Call phin with a authorization header containing the api key', async done 
     expect(requestArg).toHaveProperty('headers')
     expect(requestArg.headers).toHaveProperty('Authorization')
     expect(requestArg.headers.Authorization).toBe(`Bearer ${apiKey}`)
+    done()
+})
+
+test('Include no query params when options.format = "json"', async done => {
+    await makeApiRequest(apiKey, baseId, tableId, { format: 'json' })
+    const requestArg = phinMock.mock.calls[0][0]
+    expect(requestArg.url).not.toMatch('?')
+    done()
+})
+
+test('Include no query params when options.format is not defined', async done => {
+    await makeApiRequest(apiKey, baseId, tableId)
+    const requestArg = phinMock.mock.calls[0][0]
+    expect(requestArg.url).not.toMatch('?')
+    done()
+})
+
+test('Pass `cellFormat`, `userLocale`, and `timeZone` query params when options.format = "string"', async done => {
+    await makeApiRequest(apiKey, baseId, tableId, { format: 'string' })
+    const requestArg = phinMock.mock.calls[0][0]
+    expect(requestArg.url).toMatch(`?cellFormat=string&timeZone=America%2FChicago&userLocale=en-us`)
     done()
 })

@@ -11,7 +11,12 @@ export class ThrottleBank {
     private static throttles: { [id: string]: ReturnType<typeof throttleFactory> } = {}
 }
 
-export default (apiKey: string, baseId: string, tableId: string, options: Partial<phin.Options> = {}) => {
+export default (
+    apiKey: string,
+    baseId: string,
+    tableId: string,
+    options: Partial<phin.Options & { format: 'string' | 'json' }> = {},
+): Promise<phin.JsonResponse> => {
     const throttle = ThrottleBank.getThrottle(apiKey)
     const defaultOptions: Partial<phin.Options> = {
         headers: {
@@ -19,9 +24,13 @@ export default (apiKey: string, baseId: string, tableId: string, options: Partia
         },
         parse: 'json',
     }
-    return throttle(phin, {
+    const url =
+        options.format === 'string'
+            ? `https://api.airtable.com/v0/${baseId}/${tableId}?cellFormat=string&timeZone=America%2FChicago&userLocale=en-us`
+            : `https://api.airtable.com/v0/${baseId}/${tableId}`
+    return (throttle(phin, {
         ...defaultOptions,
         ...options,
-        url: `https://api.airtable.com/v0/${baseId}/${tableId}`,
-    })
+        url,
+    }) as unknown) as Promise<phin.JsonResponse>
 }
