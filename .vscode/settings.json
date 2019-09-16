@@ -7,5 +7,10 @@
     "javascript.format.enable": false,
     "prettier.requireConfig": true,
     "prettier.tslintIntegration": true,
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "cSpell.words": [
+        "Airtable",
+        "barcode",
+        "phin"
+    ]
 }
