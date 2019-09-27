@@ -38,3 +38,4 @@ export type TypeCheckerFn = (records: RecordValuePair[]) => IsType
 
 export { default as isLinkToAnotherRecord } from './isLinkToAnotherRecord'
 export { default as isLinkToOtherRecords } from './isLinkToOtherRecords'
+export { default as isMultiLineText } from './isMultiLineText'
